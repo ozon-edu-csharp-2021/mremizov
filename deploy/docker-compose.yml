@@ -12,7 +12,7 @@ services:
       - "8082:80"
   merchandise-service:
     build:
-        context: ./merchandise-service
+        context: ../
         dockerfile: Dockerfile
     image: merchandise-api:main
     hostname: merchandise-api
