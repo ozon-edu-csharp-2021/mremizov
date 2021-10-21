@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{37CF3F91-9AF2-4E60-82AB-186CE7101435}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0A98B7E9-5EEC-469C-8777-7085B24A3B3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BCCEFE7F-CDCB-4A11-8CEF-BD4FF3F79F36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OzonEdu.MerchandiseApi", "src\OzonEdu.MerchandiseApi\OzonEdu.MerchandiseApi.csproj", "{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{A7E952A6-4372-4462-8A50-F4A1793AAD63}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\docker-compose.yml = deploy\docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8CBFCEA6-7FF0-42DF-A6CA-745E08E949B9} = {0A98B7E9-5EEC-469C-8777-7085B24A3B3A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71629252-D3EB-499E-9872-031EA850B480}
+	EndGlobalSection
+EndGlobal
