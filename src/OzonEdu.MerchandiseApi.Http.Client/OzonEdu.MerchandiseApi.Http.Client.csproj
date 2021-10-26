@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Http.Contracts\OzonEdu.MerchandiseApi.Http.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
