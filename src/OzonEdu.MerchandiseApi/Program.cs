@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using OzonEdu.MerchandiseApi.Infrastructure;
 
 namespace OzonEdu.MerchandiseApi
 {
@@ -31,6 +32,7 @@ namespace OzonEdu.MerchandiseApi
                     });
 
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .AddInfrastructure();
     }
 }

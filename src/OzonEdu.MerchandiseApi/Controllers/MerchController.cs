@@ -13,6 +13,8 @@ namespace OzonEdu.MerchandiseApi.Controllers
         [HttpGet]
         public Task<GetMerchInfoResponse> GetMerchInfo(CancellationToken token)
         {
+            //throw new System.Exception("test");
+
             return Task.FromResult(new GetMerchInfoResponse
             {
                 Data = "SomeData"
