@@ -1,6 +1,6 @@
 ﻿namespace OzonEdu.MerchandiseApi.Http.Contracts
 {
-    public class GiveOutMerchRequest
+    public sealed class GiveOutMerchRequest
     {
         public string Data { get; set; }
     }

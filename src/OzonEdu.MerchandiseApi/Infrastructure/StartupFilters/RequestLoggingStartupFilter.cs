@@ -5,7 +5,7 @@ using OzonEdu.MerchandiseApi.Infrastructure.Middlewares;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.StartupFilters
 {
-    public class RequestLoggingStartupFilter : IStartupFilter
+    public sealed class RequestLoggingStartupFilter : IStartupFilter
     {
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
