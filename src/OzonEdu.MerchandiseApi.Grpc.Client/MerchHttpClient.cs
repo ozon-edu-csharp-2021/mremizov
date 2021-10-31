@@ -5,7 +5,7 @@ using OzonEdu.MerchandiseApi.Grpc.Contracts;
 
 namespace OzonEdu.MerchandiseApi.Grpc.Client
 {
-    public class MerchGrpcClient : IMerchGrpcClient
+    public sealed class MerchGrpcClient : IMerchGrpcClient
     {
         private readonly string _address;
 

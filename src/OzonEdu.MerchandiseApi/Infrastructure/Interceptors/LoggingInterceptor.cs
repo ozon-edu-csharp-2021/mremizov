@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.Interceptors
 {
-    public class LoggingInterceptor : Interceptor
+    public sealed class LoggingInterceptor : Interceptor
     {
         private readonly ILogger<LoggingInterceptor> _logger;
 

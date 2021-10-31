@@ -7,7 +7,7 @@ using OzonEdu.MerchandiseApi.Http.Contracts;
 
 namespace OzonEdu.MerchandiseApi.Http.Client
 {
-    public class MerchHttpClient : IMerchHttpClient
+    public sealed class MerchHttpClient : IMerchHttpClient
     {
         private readonly HttpClient _httpClient;
 

@@ -8,7 +8,7 @@ namespace OzonEdu.MerchandiseApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class MerchController : ControllerBase
+    public sealed class MerchController : ControllerBase
     {
         [HttpGet]
         public Task<GetMerchInfoResponse> GetMerchInfo(CancellationToken token)

@@ -7,7 +7,7 @@ using OzonEdu.MerchandiseApi.GrpcServices;
 
 namespace OzonEdu.MerchandiseApi
 {
-    public class Startup
+    public sealed class Startup
     {
         public Startup(IConfiguration configuration)
         {

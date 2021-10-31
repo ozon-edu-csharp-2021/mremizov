@@ -5,7 +5,7 @@ using OzonEdu.MerchandiseApi.Infrastructure;
 
 namespace OzonEdu.MerchandiseApi
 {
-    public class Program
+    public sealed class Program
     {
         public static void Main(string[] args)
         {

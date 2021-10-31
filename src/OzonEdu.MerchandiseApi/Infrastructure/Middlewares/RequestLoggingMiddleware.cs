@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using OzonEdu.MerchandiseApi.Infrastructure.Extensions;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
 {
-    public class RequestLoggingMiddleware
+    public sealed class RequestLoggingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<RequestLoggingMiddleware> _logger;
@@ -27,20 +28,47 @@ namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            await LogRequest(context);
-            await _next(context);
-            await LogResponse(context);
+            if (_skipSegments.Any(segment => context.Request.Path.StartsWithSegments(segment)))
+            {
+                await _next(context);
+            }
+            else
+            {
+                // TODO: возможно не самое оптимальное решение
+                // см https://stackoverflow.com/a/52328142/2814287
+                // + вложенные try-catch, исследовать
+                // пока хватит и этого
+                var originalResponseBodyStream = context.Response.Body;
+
+                try
+                {
+                    using (var bufferedResponseBodyStream = new MemoryStream())
+                    {
+                        context.Response.Body = bufferedResponseBodyStream;
+
+                        await LogRequest(context);
+                        await _next(context);
+                        await LogResponse(context);
+
+                        bufferedResponseBodyStream.Position = 0;
+                        await bufferedResponseBodyStream.CopyToAsync(originalResponseBodyStream);
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    context.Response.Body = originalResponseBodyStream;
+                }
+            }
         }
 
         private async Task LogRequest(HttpContext context)
         {
             try
             {
-                if (_skipSegments.Any(segment => context.Request.Path.StartsWithSegments(segment)))
-                {
-                    return;
-                }
-
                 var method = context.Request.Method;
                 var path = context.Request.Path;
                 var headers = context.Request.Headers.ReadHeadersAsString();
@@ -74,17 +102,12 @@ namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
         {
             try
             {
-                if (_skipSegments.Any(segment => context.Request.Path.StartsWithSegments(segment)))
-                {
-                    return;
-                }
-
                 var method = context.Request.Method;
                 var path = context.Request.Path;
                 var headers = context.Response.Headers.ReadHeadersAsString();
                 var body = string.Empty;
 
-                if (context.Response.ContentLength > 0)
+                if (context.Response.Body.Length > 0)
                 {
                     body = await context.Response.Body.ReadBodyAsString();
                 }

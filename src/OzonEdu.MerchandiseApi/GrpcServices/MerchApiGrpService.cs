@@ -5,7 +5,7 @@ using OzonEdu.MerchandiseApi.Grpc.Contracts;
 
 namespace OzonEdu.MerchandiseApi.GrpcServices
 {
-    public class MerchApiGrpService : MerchApiGrpc.MerchApiGrpcBase
+    public sealed class MerchApiGrpService : MerchApiGrpc.MerchApiGrpcBase
     {
         public override Task<GetMerchInfoResponse> GetMerchInfo(Empty request, ServerCallContext context)
         {
