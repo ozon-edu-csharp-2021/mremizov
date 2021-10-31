@@ -9,7 +9,7 @@ using OzonEdu.MerchandiseApi.Infrastructure.Extensions;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
 {
-    public sealed class RequestLoggingMiddleware
+    internal sealed class RequestLoggingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<RequestLoggingMiddleware> _logger;

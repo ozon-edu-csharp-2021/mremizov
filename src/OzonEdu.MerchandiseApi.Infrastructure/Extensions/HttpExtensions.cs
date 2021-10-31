@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.Extensions
 {
-    public static class HttpExtensions
+    internal static class HttpExtensions
     {
         public static string ReadHeadersAsString(this IHeaderDictionary headers, string separator = "\n")
         {

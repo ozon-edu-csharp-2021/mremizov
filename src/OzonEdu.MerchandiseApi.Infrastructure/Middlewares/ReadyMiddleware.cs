@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
 {
-    public sealed class LiveMiddleware
+    internal sealed class ReadyMiddleware
     {
-        public LiveMiddleware(RequestDelegate next)
+        public ReadyMiddleware(RequestDelegate next)
         {
         }
 
