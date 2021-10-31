@@ -36,6 +36,7 @@ namespace OzonEdu.MerchandiseApi.Infrastructure.Middlewares
             {
                 // TODO: возможно не самое оптимальное решение
                 // см https://stackoverflow.com/a/52328142/2814287
+                // https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/middleware/request-response?view=aspnetcore-5.0
                 // + вложенные try-catch, исследовать
                 // пока хватит и этого
                 var originalResponseBodyStream = context.Response.Body;

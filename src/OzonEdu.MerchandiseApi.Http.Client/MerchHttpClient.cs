@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -20,8 +21,7 @@ namespace OzonEdu.MerchandiseApi.Http.Client
         {
             using (var response = await _httpClient.GetAsync("api/merch", token))
             {
-                var body = await response.Content.ReadAsStringAsync(token);
-                return JsonSerializer.Deserialize<GetMerchInfoResponse>(body);
+                return await response.Content.ReadFromJsonAsync<GetMerchInfoResponse>(cancellationToken: token);
             }
         }
 
@@ -31,8 +31,7 @@ namespace OzonEdu.MerchandiseApi.Http.Client
 
             using (var response = await _httpClient.PostAsync("api/merch", content, token))
             {
-                var body = await response.Content.ReadAsStringAsync(token);
-                return JsonSerializer.Deserialize<GiveOutMerchResponse>(body);
+                return await response.Content.ReadFromJsonAsync<GiveOutMerchResponse>(cancellationToken: token);
             }
         }
     }
