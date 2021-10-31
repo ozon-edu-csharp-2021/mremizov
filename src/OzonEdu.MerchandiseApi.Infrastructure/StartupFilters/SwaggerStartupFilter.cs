@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace OzonEdu.MerchandiseApi.Infrastructure.StartupFilters
 {
-    public sealed class SwaggerStartupFilter : IStartupFilter
+    internal sealed class SwaggerStartupFilter : IStartupFilter
     {
         private readonly IWebHostEnvironment _environment;
 

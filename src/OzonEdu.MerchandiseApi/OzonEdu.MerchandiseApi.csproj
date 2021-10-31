@@ -8,13 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Grpc.Contracts\OzonEdu.MerchandiseApi.Grpc.Contracts.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Http.Contracts\OzonEdu.MerchandiseApi.Http.Contracts.csproj" />
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Infrastructure\OzonEdu.MerchandiseApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
