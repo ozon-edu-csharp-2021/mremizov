@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -7,13 +8,13 @@ namespace OzonEdu.MerchandiseApi.Infrastructure.Extensions
 {
     internal static class HttpExtensions
     {
-        public static string ReadHeadersAsString(this IHeaderDictionary headers, string separator = "\n")
+        public static string ReadHeadersAsString(this IHeaderDictionary headers)
         {
             var sb = new StringBuilder();
 
             foreach (var header in headers)
             {
-                sb.Append($"{header.Key}: {header.Value}{separator}");
+                sb.Append($"{header.Key}: {header.Value}{Environment.NewLine}");
             }
 
             return sb.ToString();
