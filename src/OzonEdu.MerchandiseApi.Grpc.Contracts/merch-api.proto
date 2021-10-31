@@ -1,0 +1,23 @@
+﻿syntax = "proto3";
+option csharp_namespace = "OzonEdu.MerchandiseApi.Grpc.Contracts";
+package MerchApi;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service MerchApiGrpc {
+  rpc GetMerchInfo (google.protobuf.Empty) returns (GetMerchInfoResponse);
+  rpc GiveOutMerch (GiveOutMerchRequest) returns (GiveOutMerchResponse);
+}
+
+message GetMerchInfoResponse {
+  google.protobuf.StringValue data = 1;
+}
+
+message GiveOutMerchRequest {
+  google.protobuf.StringValue data = 1;
+}
+
+message GiveOutMerchResponse {
+  google.protobuf.StringValue data = 1;
+}

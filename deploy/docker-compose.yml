@@ -18,13 +18,14 @@ services:
     hostname: merchandise-api
     ports:
       - "8013:80"
+      - "8014:8080"
   stock-service:
     image: ghcr.io/ozon-edu-csharp-2021/stock-api:main
     hostname: stock-api
     ports:
-      - "8014:80"
+      - "8015:80"
   supply-service:
     image: ghcr.io/ozon-edu-csharp-2021/supply-service:main
     hostname: supply-api
     ports:
-      - "8015:80"
+      - "8016:80"
