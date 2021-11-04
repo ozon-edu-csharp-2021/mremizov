@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpCourse.Core.Lib" Version="1.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Domain\OzonEdu.MerchandiseApi.Domain.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Grpc.Contracts\OzonEdu.MerchandiseApi.Grpc.Contracts.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Http.Contracts\OzonEdu.MerchandiseApi.Http.Contracts.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Infrastructure\OzonEdu.MerchandiseApi.Infrastructure.csproj" />

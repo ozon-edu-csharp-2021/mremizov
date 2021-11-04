@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSharpCourse.Core.Lib" Version="1.4.0" />
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Domain\OzonEdu.MerchandiseApi.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OzonEdu.MerchandiseApi.Domain.Services;
 using OzonEdu.MerchandiseApi.Http.Contracts;
 
 namespace OzonEdu.MerchandiseApi.Controllers
@@ -10,21 +11,32 @@ namespace OzonEdu.MerchandiseApi.Controllers
     [Produces("application/json")]
     public sealed class MerchController : ControllerBase
     {
-        [HttpGet]
-        public Task<GetMerchInfoResponse> GetMerchInfo(CancellationToken token)
+        private readonly IMerchDomainService _merchDomainService;
+
+        public MerchController(IMerchDomainService merchDomainService)
         {
-            return Task.FromResult(new GetMerchInfoResponse
+            _merchDomainService = merchDomainService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<GetMerchInfoResponse>> GetMerchInfo(GetMerchInfoRequest request, CancellationToken token)
+        {
+            var merchs = await _merchDomainService.GetMerchInfo(request.EmployeeId, token);
+
+            return Ok(new GetMerchInfoResponse
             {
-                Data = "SomeData"
+                // TODO: замаппить мерч на модель
             });
         }
 
         [HttpPost]
-        public Task<GiveOutMerchResponse> GiveOutMerch(GiveOutMerchRequest request, CancellationToken token)
+        public async Task<ActionResult<GiveOutMerchResponse>> GiveOutMerch(GiveOutMerchRequest request, CancellationToken token)
         {
-            return Task.FromResult(new GiveOutMerchResponse
+            var merch = await _merchDomainService.GiveOutMerch(request.EmployeeId, request.MerchType, token);
+
+            return Ok(new GiveOutMerchResponse
             {
-                Data = "SomeData"
+                // TODO: замаппить мерч на модель
             });
         }
     }
