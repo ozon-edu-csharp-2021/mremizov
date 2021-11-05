@@ -2,8 +2,13 @@
 
 namespace OzonEdu.MerchandiseApi.Domain.Exceptions
 {
-    public sealed class DomainException : ApplicationException
+    public class DomainException : ApplicationException
     {
+        public DomainException() : base()
+        {
+
+        }
+
         public DomainException(string message) : base(message)
         {
 

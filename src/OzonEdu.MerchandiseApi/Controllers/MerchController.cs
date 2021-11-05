@@ -19,9 +19,14 @@ namespace OzonEdu.MerchandiseApi.Controllers
         }
 
         [HttpPost]
+        [Route("get-merch-info")]
         public async Task<ActionResult<GetMerchInfoResponse>> GetMerchInfo(GetMerchInfoRequest request, CancellationToken token)
         {
-            var merchs = await _merchDomainService.GetMerchInfo(request.EmployeeId, token);
+            var merchs = await _merchDomainService.GetMerchInfo(new GetMerchInfoParameters
+            {
+                EmployeeEmail = request.EmployeeEmail,
+                EmployeeName = request.EmployeeName
+            }, token);
 
             return Ok(new GetMerchInfoResponse
             {
@@ -30,9 +35,15 @@ namespace OzonEdu.MerchandiseApi.Controllers
         }
 
         [HttpPost]
+        [Route("give-out-merch")]
         public async Task<ActionResult<GiveOutMerchResponse>> GiveOutMerch(GiveOutMerchRequest request, CancellationToken token)
         {
-            var merch = await _merchDomainService.GiveOutMerch(request.EmployeeId, request.MerchType, token);
+            var merch = await _merchDomainService.GiveOutMerch(new GiveOutMerchParameters
+            {
+                EmployeeEmail = request.EmployeeEmail,
+                EmployeeName = request.EmployeeName,
+                MerchType = request.MerchType
+            }, token);
 
             return Ok(new GiveOutMerchResponse
             {

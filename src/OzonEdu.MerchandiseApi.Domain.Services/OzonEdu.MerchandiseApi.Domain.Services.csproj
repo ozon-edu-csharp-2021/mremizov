@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Common\OzonEdu.MerchandiseApi.Common.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Domain\OzonEdu.MerchandiseApi.Domain.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,11 @@
 {
     public sealed class GetMerchInfoRequest
     {
-        public long EmployeeId { get; set; }
+        // TODO: что будет на входе через rest api? employeeId или employeeEmail+employeeName?
+        //public long EmployeeId { get; set; }
+
+        public string EmployeeEmail { get; set; }
+
+        public string EmployeeName { get; set; }
     }
 }

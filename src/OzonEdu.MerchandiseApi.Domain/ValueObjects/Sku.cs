@@ -5,9 +5,9 @@ namespace OzonEdu.MerchandiseApi.Domain.ValueObjects
 {
     public sealed class Sku : ValueObject
     {
-        public string Value { get; }
+        public long Value { get; }
 
-        public Sku(string sku)
+        public Sku(long sku)
         {
             Value = sku;
         }

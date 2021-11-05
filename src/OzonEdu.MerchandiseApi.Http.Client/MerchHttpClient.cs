@@ -17,9 +17,11 @@ namespace OzonEdu.MerchandiseApi.Http.Client
             _httpClient = httpClient;
         }
 
-        public async Task<GetMerchInfoResponse> GetMerchInfo(CancellationToken token)
+        public async Task<GetMerchInfoResponse> GetMerchInfo(GetMerchInfoRequest request, CancellationToken token)
         {
-            using (var response = await _httpClient.GetAsync("api/merch", token))
+            var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+
+            using (var response = await _httpClient.PostAsync("api/merch/get-merch-info", content, token))
             {
                 return await response.Content.ReadFromJsonAsync<GetMerchInfoResponse>(cancellationToken: token);
             }
@@ -29,7 +31,7 @@ namespace OzonEdu.MerchandiseApi.Http.Client
         {
             var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
 
-            using (var response = await _httpClient.PostAsync("api/merch", content, token))
+            using (var response = await _httpClient.PostAsync("api/merch/give-out-merch", content, token))
             {
                 return await response.Content.ReadFromJsonAsync<GiveOutMerchResponse>(cancellationToken: token);
             }
