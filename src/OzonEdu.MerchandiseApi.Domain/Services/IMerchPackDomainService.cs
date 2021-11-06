@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using CSharpCourse.Core.Lib.Enums;
 using OzonEdu.MerchandiseApi.Domain.Entities;
 
-namespace OzonEdu.MerchandiseApi.Domain.Repositories
+namespace OzonEdu.MerchandiseApi.Domain.Services
 {
-    public interface IMerchPackRepository
+    public interface IMerchPackDomainService
     {
         Task<MerchPack> FindBy(MerchType merchType, CancellationToken token);
     }

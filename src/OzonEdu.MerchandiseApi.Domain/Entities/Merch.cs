@@ -1,11 +1,9 @@
 ﻿using System;
 using OzonEdu.MerchandiseApi.Domain.Common;
-using OzonEdu.MerchandiseApi.Domain.EmployeeAggregate;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
 using OzonEdu.MerchandiseApi.Domain.Exceptions;
-using OzonEdu.MerchandiseApi.Domain.MerchPackAggregate;
 
-namespace OzonEdu.MerchandiseApi.Domain.MerchAggregate
+namespace OzonEdu.MerchandiseApi.Domain.Entities
 {
     public sealed class Merch : Entity
     {

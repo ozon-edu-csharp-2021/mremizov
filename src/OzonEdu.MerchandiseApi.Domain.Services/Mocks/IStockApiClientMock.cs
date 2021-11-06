@@ -6,8 +6,6 @@ namespace OzonEdu.MerchandiseApi.Domain.Services.Mocks
 {
     public interface IStockApiClientMock
     {
-        Task<bool> SkuListExist(IEnumerable<long> skuList, CancellationToken token);
-
-        Task ReserveSkuList(IEnumerable<long> skuList, CancellationToken token);
+        Task<bool> TryReserve(IEnumerable<long> skuList, CancellationToken token);
     }
 }

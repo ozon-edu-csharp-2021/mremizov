@@ -1,4 +1,6 @@
-﻿using OzonEdu.MerchandiseApi.Domain.Common;
+﻿using System.Linq;
+using OzonEdu.MerchandiseApi.Domain.Common;
+using OzonEdu.MerchandiseApi.Domain.Exceptions;
 
 namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 {
@@ -13,6 +15,18 @@ namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 
         public ClothingSize(int id, string name) : base(id, name)
         {
+        }
+
+        public static ClothingSize GetBy(string name)
+        {
+            var clothingSize = GetAll<ClothingSize>().FirstOrDefault(e => e.Name == name);
+
+            if (clothingSize == null)
+            {
+                throw new ClothingSizeNotFoundException(name);
+            }
+
+            return clothingSize;
         }
     }
 }

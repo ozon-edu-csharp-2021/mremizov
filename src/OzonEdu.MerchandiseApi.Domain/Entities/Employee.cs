@@ -1,8 +1,9 @@
-﻿using OzonEdu.MerchandiseApi.Domain.Common;
+﻿using System;
+using OzonEdu.MerchandiseApi.Domain.Common;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
 using OzonEdu.MerchandiseApi.Domain.ValueObjects;
 
-namespace OzonEdu.MerchandiseApi.Domain.EmployeeAggregate
+namespace OzonEdu.MerchandiseApi.Domain.Entities
 {
     public sealed class Employee : Entity
     {
