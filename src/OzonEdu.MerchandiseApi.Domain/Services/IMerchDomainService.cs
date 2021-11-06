@@ -2,12 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CSharpCourse.Core.Lib.Enums;
+using OzonEdu.MerchandiseApi.Domain.Common;
 using OzonEdu.MerchandiseApi.Domain.Entities;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
 
 namespace OzonEdu.MerchandiseApi.Domain.Services
 {
-    public interface IMerchDomainService
+    public interface IMerchDomainService : IDomainService
     {
         Task<IEnumerable<Merch>> GetMerchInfo(EmployeeParameters parameters, CancellationToken token);
 

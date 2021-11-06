@@ -2,10 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using OzonEdu.MerchandiseApi.Domain.Aggregates;
+using OzonEdu.MerchandiseApi.Domain.Common;
 
 namespace OzonEdu.MerchandiseApi.Domain.Services
 {
-    public interface IEmployeeWithMerchsDomainService
+    public interface IEmployeeWithMerchsDomainService : IDomainService
     {
         Task<EmployeeWithMerchs> FindOrCreateBy(EmployeeParameters parameters, CancellationToken token);
 
