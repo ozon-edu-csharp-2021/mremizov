@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using OzonEdu.MerchandiseApi.Domain.Common;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
 using OzonEdu.MerchandiseApi.Domain.ValueObjects;
@@ -22,5 +23,15 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
         public Email Email { get; }
 
         public ClothingSize ClothingSize { get; }
+
+        public Task SendPickupMerchNotification()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendCanPickupMerchNotification()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

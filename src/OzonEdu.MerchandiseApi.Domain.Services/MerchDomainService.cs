@@ -40,6 +40,8 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
         public async Task<Merch> GiveOutMerch(EmployeeParameters employeeParameters, MerchParameters merchParameters, CancellationToken token)
         {
+            // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу два одинаковых мерча.
+
             var employee = await _employeeWithMerchsDomainService.FindOrCreateBy(employeeParameters, token);
             var merchPack = await _merchPackDomainService.FindBy(merchParameters.MerchType, token);
             var merch = employee.AddMerchToEmployee(merchParameters.MerchMode, merchPack);
@@ -49,6 +51,8 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
         public async Task<IEnumerable<Merch>> GiveOutMerch(IEnumerable<long> shippedSkuList, CancellationToken token)
         {
+            // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу мерчи несколько раз.
+
             var employees = await _employeeWithMerchsDomainService.FindAllBy(shippedSkuList, token);
 
             foreach (var employee in employees)
@@ -57,7 +61,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                 {
                     if (merch.Mode == MerchMode.Manual)
                     {
-                        // TODO: Отправить e-mail сотруднику, что интересующий его мерч появился на остатках
+                        await merch.Employee.SendCanPickupMerchNotification();
                     }
                     else if (merch.Mode == MerchMode.Auto)
                     {
@@ -83,14 +87,18 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                 merch.Done();
                 await _merchRepository.Save(merch, token);
 
-                // TODO: Отправить e-mail сотруднику, что ему необходимо подойти к HR для получения мерча, если parameters.MerchMode = Auto
+                if (merch.Mode == MerchMode.Auto)
+                {
+                    await merch.Employee.SendPickupMerchNotification();
+                }
             }
             else
             {
                 merch.Waiting();
                 await _merchRepository.Save(merch, token);
 
-                // TODO: отправить уведомление HR, что мерч закончился и необходимо сделать поставку
+                // TODO: отправить e-mail HR, что мерч закончился и необходимо сделать поставку
+                // TODO: где найти email HR?
             }
 
             return merch;
