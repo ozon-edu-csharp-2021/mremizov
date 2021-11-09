@@ -26,6 +26,7 @@ namespace OzonEdu.MerchandiseApi
             services.AddServices();
 
             // TODO: заменить на настоящие
+            services.AddTransient<IEmailServiceMock, EmailServiceMock>();
             services.AddTransient<IEmployeeApiClientMock, EmployeeApiClientMock>();
             services.AddTransient<IStockApiClientMock, StockApiClientMock>();
         }

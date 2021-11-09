@@ -23,15 +23,5 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
         public Email Email { get; }
 
         public ClothingSize ClothingSize { get; }
-
-        public Task SendPickupMerchNotification()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SendCanPickupMerchNotification()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

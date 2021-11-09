@@ -15,17 +15,20 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
         private readonly IMerchRepository _merchRepository;
         private readonly IEmployeeWithMerchsDomainService _employeeWithMerchsDomainService;
         private readonly IMerchPackDomainService _merchPackDomainService;
+        private readonly IEmailServiceMock _emailServiceMock;
         private readonly IStockApiClientMock _stockApiClientMock;
 
         public MerchDomainService(
             IMerchRepository merchRepository,
             IEmployeeWithMerchsDomainService employeeWithMerchsDomainService,
             IMerchPackDomainService merchPackDomainService,
+            IEmailServiceMock emailServiceMock,
             IStockApiClientMock stockApiClientMock)
         {
             _merchRepository = merchRepository;
             _employeeWithMerchsDomainService = employeeWithMerchsDomainService;
             _merchPackDomainService = merchPackDomainService;
+            _emailServiceMock = emailServiceMock;
             _stockApiClientMock = stockApiClientMock;
         }
 
@@ -52,7 +55,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                 {
                     if (merch.Mode == MerchMode.Manual)
                     {
-                        await merch.Employee.SendCanPickupMerchNotification();
+                        await _emailServiceMock.SendCanPickupMerchNotification(merch.Employee.Email.Value);
                     }
                     else if (merch.Mode == MerchMode.Auto)
                     {
@@ -80,7 +83,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
                 if (merch.Mode == MerchMode.Auto)
                 {
-                    await merch.Employee.SendPickupMerchNotification();
+                    await _emailServiceMock.SendPickupMerchNotification(merch.Employee.Email.Value);
                 }
             }
             else
@@ -88,8 +91,8 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                 merch.Waiting();
                 await _merchRepository.Save(merch, token);
 
-                // TODO: отправить e-mail HR, что мерч закончился и необходимо сделать поставку
                 // TODO: где найти email HR?
+                await _emailServiceMock.SendMerchOutOfStockNotification("", merch.MerchPack.MerchType.Value);
             }
 
             return merch;
