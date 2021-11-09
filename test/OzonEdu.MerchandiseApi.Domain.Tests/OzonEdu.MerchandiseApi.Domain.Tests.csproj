@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OzonEdu.MerchandiseApi.Domain\OzonEdu.MerchandiseApi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

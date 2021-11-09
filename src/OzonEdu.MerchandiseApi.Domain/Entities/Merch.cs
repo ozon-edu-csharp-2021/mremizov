@@ -19,6 +19,19 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
             MerchPack = merchPack;
         }
 
+        /// <summary>
+        /// Для тестов.
+        /// </summary>
+        public Merch(
+            MerchMode merchMode,
+            Employee employee,
+            MerchPack merchPack,
+            MerchStatus merchStatus)
+            : this(merchMode, employee, merchPack)
+        {
+            Status = merchStatus;
+        }
+
         public DateTime CreatedUtc { get; }
 
         public MerchMode Mode { get; private set; }
@@ -39,6 +52,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
             if (Status == MerchStatus.New)
             {
                 Status = MerchStatus.Waiting;
+                return;
             }
 
             throw new MerchInvalidStatusException();
@@ -54,6 +68,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
             if (Status == MerchStatus.New || Status == MerchStatus.Waiting)
             {
                 Status = MerchStatus.Done;
+                return;
             }
 
             throw new MerchInvalidStatusException();

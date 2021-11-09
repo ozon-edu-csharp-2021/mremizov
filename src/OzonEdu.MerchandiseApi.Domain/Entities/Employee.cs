@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using OzonEdu.MerchandiseApi.Domain.Common;
+﻿using OzonEdu.MerchandiseApi.Domain.Common;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
 using OzonEdu.MerchandiseApi.Domain.ValueObjects;
 
