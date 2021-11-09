@@ -8,4 +8,12 @@ namespace OzonEdu.MerchandiseApi.Domain.Services.Mocks
     {
         Task<bool> TryReserve(IEnumerable<long> skuList, CancellationToken token);
     }
+
+    public sealed class StockApiClientMock : IStockApiClientMock
+    {
+        public Task<bool> TryReserve(IEnumerable<long> skuList, CancellationToken token)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

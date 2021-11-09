@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OzonEdu.MerchandiseApi.Domain.Enumerations;
@@ -12,10 +13,14 @@ namespace OzonEdu.MerchandiseApi.Controllers
     [Produces("application/json")]
     public sealed class MerchController : ControllerBase
     {
+        private readonly IEmployeeWithMerchsDomainService _employeeWithMerchsDomainService;
         private readonly IMerchDomainService _merchDomainService;
 
-        public MerchController(IMerchDomainService merchDomainService)
+        public MerchController(
+            IEmployeeWithMerchsDomainService employeeWithMerchsDomainService,
+            IMerchDomainService merchDomainService)
         {
+            _employeeWithMerchsDomainService = employeeWithMerchsDomainService;
             _merchDomainService = merchDomainService;
         }
 
@@ -29,11 +34,19 @@ namespace OzonEdu.MerchandiseApi.Controllers
                 EmployeeName = request.EmployeeName
             };
 
-            var merchs = await _merchDomainService.GetMerchInfo(employeeParameters, token);
+            var employee = await _employeeWithMerchsDomainService.FindOrCreateBy(employeeParameters, token);
 
             return Ok(new GetMerchInfoResponse
             {
-                // TODO: замаппить мерч на модель
+                Merchs = employee.Merchs
+                    .Select(e => new MerchDto
+                    {
+                        CreatedUtc = e.CreatedUtc,
+                        Status = e.Status.Name,
+                        Type = e.MerchPack.MerchType.Value.ToString(),
+                        SkuList = e.MerchPack.SkuList.ToArray()
+                    })
+                    .ToArray()
             });
         }
 
@@ -57,7 +70,13 @@ namespace OzonEdu.MerchandiseApi.Controllers
 
             return Ok(new GiveOutMerchResponse
             {
-                // TODO: замаппить мерч на модель
+                Merch = new MerchDto
+                {
+                    CreatedUtc = merch.CreatedUtc,
+                    Status = merch.Status.Name,
+                    Type = merch.MerchPack.MerchType.Value.ToString(),
+                    SkuList = merch.MerchPack.SkuList.ToArray()
+                }
             });
         }
     }

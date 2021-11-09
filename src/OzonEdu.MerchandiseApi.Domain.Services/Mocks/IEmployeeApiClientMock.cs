@@ -8,6 +8,14 @@ namespace OzonEdu.MerchandiseApi.Domain.Services.Mocks
         Task<EmployeeDto> GetBy(string employeeEmail, string employeeName, CancellationToken token);
     }
 
+    public sealed class EmployeeApiClientMock : IEmployeeApiClientMock
+    {
+        public Task<EmployeeDto> GetBy(string employeeEmail, string employeeName, CancellationToken token)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public sealed class EmployeeDto
     {
         public string Name { get; set; }

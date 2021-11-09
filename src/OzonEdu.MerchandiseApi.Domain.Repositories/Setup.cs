@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OzonEdu.MerchandiseApi.Domain.Common;
 
 namespace OzonEdu.MerchandiseApi.Domain.Repositories
 {
@@ -6,9 +7,12 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
     {
         public static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IEmployeeRepository, EmployeeRepository>();
-            serviceCollection.AddTransient<IMerchPackRepository, MerchPackRepository>();
-            serviceCollection.AddTransient<IMerchRepository, MerchRepository>();
+            serviceCollection
+                .Scan(scan => scan
+                .FromCallingAssembly()
+                .AddClasses(classes => classes.AssignableTo<IRepository>())
+                .AsMatchingInterface()
+                .WithTransientLifetime());
 
             return serviceCollection;
         }

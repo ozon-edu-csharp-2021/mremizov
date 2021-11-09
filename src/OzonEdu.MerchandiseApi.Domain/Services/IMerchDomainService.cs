@@ -10,8 +10,6 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 {
     public interface IMerchDomainService : IDomainService
     {
-        Task<IEnumerable<Merch>> GetMerchInfo(EmployeeParameters parameters, CancellationToken token);
-
         Task<Merch> GiveOutMerch(EmployeeParameters employeeParameters, MerchParameters merchParameters, CancellationToken token);
 
         Task<IEnumerable<Merch>> GiveOutMerch(IEnumerable<long> shippedSkuList, CancellationToken token);

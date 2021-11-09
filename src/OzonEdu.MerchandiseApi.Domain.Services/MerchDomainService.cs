@@ -24,18 +24,9 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
             IStockApiClientMock stockApiClientMock)
         {
             _merchRepository = merchRepository;
-
             _employeeWithMerchsDomainService = employeeWithMerchsDomainService;
             _merchPackDomainService = merchPackDomainService;
-
             _stockApiClientMock = stockApiClientMock;
-        }
-
-        public async Task<IEnumerable<Merch>> GetMerchInfo(EmployeeParameters employeeParameters, CancellationToken token)
-        {
-            var employee = await _employeeWithMerchsDomainService.FindOrCreateBy(employeeParameters, token);
-
-            return employee.Merchs;
         }
 
         public async Task<Merch> GiveOutMerch(EmployeeParameters employeeParameters, MerchParameters merchParameters, CancellationToken token)
