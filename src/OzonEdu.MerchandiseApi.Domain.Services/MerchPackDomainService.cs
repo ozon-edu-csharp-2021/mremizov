@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CSharpCourse.Core.Lib.Enums;
 using OzonEdu.MerchandiseApi.Domain.Entities;
+using OzonEdu.MerchandiseApi.Domain.Enumerations;
 using OzonEdu.MerchandiseApi.Domain.Exceptions;
 using OzonEdu.MerchandiseApi.Domain.Repositories;
 
@@ -16,9 +17,9 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
             _merchPackRepository = merchPackRepository;
         }
 
-        public async Task<MerchPack> FindBy(MerchType merchType, CancellationToken token)
+        public async Task<MerchPack> FindBy(MerchType merchType, ClothingSize clothingSize, CancellationToken token)
         {
-            var merchPack = await _merchPackRepository.FindBy(merchType, token);
+            var merchPack = await _merchPackRepository.FindBy(merchType, clothingSize, token);
 
             if (merchPack == null)
             {
