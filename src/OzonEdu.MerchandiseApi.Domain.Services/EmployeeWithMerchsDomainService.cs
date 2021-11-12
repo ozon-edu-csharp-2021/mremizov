@@ -20,9 +20,9 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
             _employeeDomainService = employeeDomainService;
         }
 
-        public async Task<EmployeeWithMerchs> FindOrCreateBy(EmployeeParameters parameters, CancellationToken token)
+        public async Task<EmployeeWithMerchs> FindBy(EmployeeParameters parameters, CancellationToken token)
         {
-            var employee = await _employeeDomainService.FindOrCreateBy(parameters, token);
+            var employee = await _employeeDomainService.FindBy(parameters, token);
 
             var merchs = await _merchRepository.FindAllBy(employee.Id, token);
 

@@ -34,7 +34,7 @@ namespace OzonEdu.MerchandiseApi.Controllers
                 EmployeeName = request.EmployeeName
             };
 
-            var employee = await _employeeWithMerchsDomainService.FindOrCreateBy(employeeParameters, token);
+            var employee = await _employeeWithMerchsDomainService.FindBy(employeeParameters, token);
 
             return Ok(new GetMerchInfoResponse
             {

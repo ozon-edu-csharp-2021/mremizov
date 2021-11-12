@@ -36,7 +36,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
         {
             // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу два одинаковых мерча.
 
-            var employee = await _employeeWithMerchsDomainService.FindOrCreateBy(employeeParameters, token);
+            var employee = await _employeeWithMerchsDomainService.FindBy(employeeParameters, token);
             var merchPack = await _merchPackDomainService.FindBy(merchParameters.MerchType, employee.Employee.ClothingSize, token);
             var merch = employee.AddMerchToEmployee(merchParameters.MerchMode, merchPack);
 

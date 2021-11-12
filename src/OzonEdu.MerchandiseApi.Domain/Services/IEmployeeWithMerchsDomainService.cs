@@ -8,7 +8,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 {
     public interface IEmployeeWithMerchsDomainService : IDomainService
     {
-        Task<EmployeeWithMerchs> FindOrCreateBy(EmployeeParameters parameters, CancellationToken token);
+        Task<EmployeeWithMerchs> FindBy(EmployeeParameters parameters, CancellationToken token);
 
         Task<IEnumerable<EmployeeWithMerchs>> FindAllBy(IEnumerable<long> skuList, CancellationToken token);
     }
