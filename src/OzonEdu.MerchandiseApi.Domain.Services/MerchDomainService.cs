@@ -49,17 +49,23 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
             var employees = await _employeeWithMerchsDomainService.FindAllBy(shippedSkuList, token);
 
+            var tasks = new List<Task>();
+
             foreach (var employee in employees)
             {
                 foreach (var merch in employee.Merchs)
                 {
                     if (merch.Mode == MerchMode.Manual)
                     {
-                        await _emailServiceMock.SendCanPickupMerchNotification(merch.Employee.Email.Value);
+                        tasks.Add(
+                            _emailServiceMock.SendCanPickupMerchNotification(
+                                merch.Employee.Name.Value,
+                                merch.Employee.Email.Value));
                     }
                     else if (merch.Mode == MerchMode.Auto)
                     {
-                        await GiveOutMerch(merch, token);
+                        tasks.Add(
+                            GiveOutMerch(merch, token));
                     }
                     else
                     {
@@ -67,6 +73,8 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                     }
                 }
             }
+
+            await Task.WhenAll(tasks);
 
             return employees
                 .SelectMany(e => e.Merchs)
@@ -83,7 +91,9 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
                 if (merch.Mode == MerchMode.Auto)
                 {
-                    await _emailServiceMock.SendPickupMerchNotification(merch.Employee.Email.Value);
+                    await _emailServiceMock.SendPickupMerchNotification(
+                        merch.Employee.Name.Value,
+                        merch.Employee.Email.Value);
                 }
             }
             else
@@ -91,8 +101,8 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
                 merch.Waiting();
                 await _merchRepository.Save(merch, token);
 
-                // TODO: где найти email HR?
-                await _emailServiceMock.SendMerchOutOfStockNotification("", merch.MerchPack.MerchType.Value);
+                // TODO: где найти email и имя HR?
+                await _emailServiceMock.SendMerchOutOfStockNotification("", "", merch.MerchPack.MerchType.Value);
             }
 
             return merch;
