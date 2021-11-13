@@ -2,6 +2,6 @@
 {
     public sealed class GiveOutMerchResponse
     {
-        public string Data { get; set; }
+        public MerchDto Merch { get; set; }
     }
 }

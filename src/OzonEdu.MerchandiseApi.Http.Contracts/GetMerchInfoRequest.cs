@@ -1,8 +1,6 @@
-﻿using CSharpCourse.Core.Lib.Enums;
-
-namespace OzonEdu.MerchandiseApi.Http.Contracts
+﻿namespace OzonEdu.MerchandiseApi.Http.Contracts
 {
-    public sealed class GiveOutMerchRequest
+    public sealed class GetMerchInfoRequest
     {
         // TODO: что будет на входе через rest api? employeeId или employeeEmail+employeeName?
         //public long EmployeeId { get; set; }
@@ -10,7 +8,5 @@ namespace OzonEdu.MerchandiseApi.Http.Contracts
         public string EmployeeEmail { get; set; }
 
         public string EmployeeName { get; set; }
-
-        public MerchType MerchType { get; set; }
     }
 }
