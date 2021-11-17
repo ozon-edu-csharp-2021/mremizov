@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -19,6 +19,7 @@
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Grpc.Contracts\OzonEdu.MerchandiseApi.Grpc.Contracts.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Http.Contracts\OzonEdu.MerchandiseApi.Http.Contracts.csproj" />
     <ProjectReference Include="..\OzonEdu.MerchandiseApi.Infrastructure\OzonEdu.MerchandiseApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\OzonEdu.MerchandiseApi.Migrator\OzonEdu.MerchandiseApi.Migrator.csproj" />
   </ItemGroup>
 
 </Project>
