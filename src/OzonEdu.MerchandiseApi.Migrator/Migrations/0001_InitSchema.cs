@@ -8,19 +8,20 @@ namespace OzonEdu.MerchandiseApi.Migrator.Migrations
         public override void Up()
         {
             Create
-                .Table("MerchPacks")
-                .WithColumn("Id").AsInt64().Identity().PrimaryKey()
-                .WithColumn("Type").AsInt32().NotNullable()
-                .WithColumn("Items").AsCustom("jsonb").NotNullable();
+                .Table("merch_packs")
+                .WithColumn("id").AsInt64().Identity().PrimaryKey()
+                .WithColumn("type").AsInt32().NotNullable()
+                .WithColumn("clothing_size").AsInt32().Nullable()
+                .WithColumn("items").AsCustom("jsonb").NotNullable();
 
             Create
-                .Table("Merchs")
-                .WithColumn("Id").AsInt64().Identity().PrimaryKey()
-                .WithColumn("MerchpackId").AsInt64().NotNullable()
-                .WithColumn("EmployeeId").AsInt64().NotNullable()
-                .WithColumn("CreatedUtc").AsDateTime2().NotNullable()
-                .WithColumn("Status").AsInt32().NotNullable()
-                .WithColumn("Mode").AsInt32().NotNullable();
+                .Table("merchs")
+                .WithColumn("id").AsInt64().Identity().PrimaryKey()
+                .WithColumn("merchpack_id").AsInt64().NotNullable()
+                .WithColumn("employee_id").AsInt64().NotNullable()
+                .WithColumn("created_utc").AsDateTime2().NotNullable()
+                .WithColumn("status").AsInt32().NotNullable()
+                .WithColumn("mode").AsInt32().NotNullable();
         }
     }
 }

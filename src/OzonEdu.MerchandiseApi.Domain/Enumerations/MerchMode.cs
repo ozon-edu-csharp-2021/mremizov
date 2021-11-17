@@ -1,4 +1,6 @@
-﻿using OzonEdu.MerchandiseApi.Domain.Common;
+﻿using System.Linq;
+using OzonEdu.MerchandiseApi.Domain.Common;
+using OzonEdu.MerchandiseApi.Domain.Exceptions;
 
 namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 {
@@ -9,6 +11,18 @@ namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 
         public MerchMode(int id, string name) : base(id, name)
         {
+        }
+
+        public static MerchMode GetBy(MerchModeEnum value)
+        {
+            var item = GetAll<MerchMode>().FirstOrDefault(e => e.Id == (int)value);
+
+            if (item == null)
+            {
+                throw new MerchModeNotFoundException(value.ToString());
+            }
+
+            return item;
         }
     }
 

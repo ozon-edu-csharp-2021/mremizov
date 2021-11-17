@@ -12,14 +12,27 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
             SkuList items)
         {
             MerchType = merchType;
-            Items = items;
-            SkuList = Items.Select(e => e.Value).ToArray();
+            SkuList = items;
+            SkuListValues = SkuList.Select(e => e.Value).ToArray();
+        }
+
+        /// <summary>
+        /// Для dapper.
+        /// </summary>
+        public MerchPack(
+            long id,
+            MerchType merchType,
+            SkuList items) : base(id)
+        {
+            MerchType = merchType;
+            SkuList = items;
+            SkuListValues = SkuList.Select(e => e.Value).ToArray();
         }
 
         public MerchType MerchType { get; }
 
-        public SkuList Items { get; }
+        public SkuList SkuList { get; }
 
-        public IReadOnlyCollection<long> SkuList { get; }
+        public IReadOnlyCollection<long> SkuListValues { get; }
     }
 }

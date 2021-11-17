@@ -20,6 +20,24 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
         }
 
         /// <summary>
+        /// Для dapper.
+        /// </summary>
+        public Merch(
+            long id,
+            DateTime createdUtc,
+            MerchMode mode,
+            MerchStatus status,
+            Employee employee,
+            MerchPack merchPack) : base(id)
+        {
+            CreatedUtc = createdUtc;
+            Mode = mode;
+            Status = status;
+            Employee = employee;
+            MerchPack = merchPack;
+        }
+
+        /// <summary>
         /// Для тестов.
         /// </summary>
         public Merch(

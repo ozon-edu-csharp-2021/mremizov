@@ -8,8 +8,7 @@ namespace OzonEdu.MerchandiseApi.Migrator.Migrations
         public override void Up()
         {
             Execute.Sql(@"
-                INSERT INTO public.""MerchPacks""(
-                    ""Type"", ""Items"")
+                INSERT INTO merch_packs(type, items)
                 VALUES
                     (10, '[1]'),
 	                (20, '[2]'),

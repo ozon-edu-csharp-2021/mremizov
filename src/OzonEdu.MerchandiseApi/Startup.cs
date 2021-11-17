@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
 using OzonEdu.MerchandiseApi.Domain.Repositories;
+using OzonEdu.MerchandiseApi.Domain.Repositories.Infrastructure;
 using OzonEdu.MerchandiseApi.Domain.Services;
 using OzonEdu.MerchandiseApi.Domain.Services.Mocks;
 using OzonEdu.MerchandiseApi.GrpcServices;
@@ -24,6 +26,9 @@ namespace OzonEdu.MerchandiseApi
         {
             services.AddRepositories();
             services.AddServices();
+
+            services.Configure<DbConfiguration>(Configuration.GetSection(nameof(DbConfiguration)));
+            services.AddScoped<IDbConnectionFactory<NpgsqlConnection>, NpgsqlConnectionFactory>();
 
             // TODO: заменить на настоящие
             services.AddTransient<IEmailServiceMock, EmailServiceMock>();

@@ -47,6 +47,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
         {
             // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу мерчи несколько раз.
 
+            // TODO: Employee в базе не храним, поэтому merch.Employee пустой, надо запрашивать внешний сервис в цикле.
             var employees = await _employeeWithMerchsDomainService.FindAllBy(shippedSkuList, token);
 
             var tasks = new List<Task>();
@@ -84,7 +85,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
         private async Task<Merch> GiveOutMerch(Merch merch, CancellationToken token)
         {
-            if (await _stockApiClientMock.TryReserve(merch.MerchPack.SkuList, token))
+            if (await _stockApiClientMock.TryReserve(merch.MerchPack.SkuListValues, token))
             {
                 merch.Done();
                 await _merchRepository.Save(merch, token);

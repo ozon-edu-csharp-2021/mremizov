@@ -16,6 +16,13 @@ namespace OzonEdu.MerchandiseApi.Domain.Entities
             ClothingSize = clothingSize;
         }
 
+        /// <summary>
+        /// Для dapper.
+        /// </summary>
+        public Employee(long id) : base(id)
+        {
+        }
+
         public Name Name { get; }
 
         public Email Email { get; }
