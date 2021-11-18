@@ -55,7 +55,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
             return new MerchPack(
                 merchPack.Id,
                 new MerchType(merchPack.Type),
-                new SkuList(merchPack.Items.Select(e => new Sku(e))));
+                new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))));
         }
     }
 }

@@ -56,25 +56,24 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
                     new MerchPack(
                         merchPack.Id,
                         new MerchType(merchPack.Type),
-                        new SkuList(merchPack.Items.Select(e => new Sku(e))))));
+                        new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
 
             return merchs;
         }
 
         public async Task<IEnumerable<Merch>> FindAllBy(IEnumerable<long> skuList, CancellationToken token)
         {
-            // TODO: where in for jsonb array of long
             var sql = @"
                 SELECT  m.id, m.created_utc, m.status, m.mode,
                         mp.id as merchpack_id, mp.type as merchpack_type, mp.items as merchpack_items,
                         m.employee_id
 	            FROM    public.merchs m
                             JOIN public.merch_packs mp ON mp.id = m.merchpack_id
-                WHERE   // TODO: where in for jsonb array of long";
+                WHERE   mp.items ?| @SkuList";
 
             var parameters = new
             {
-                SkuList = skuList
+                SkuList = skuList.Select(e => e.ToString()).ToArray()
             };
 
             var commandDefinition = new CommandDefinition(
@@ -96,7 +95,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
                     new MerchPack(
                         merchPack.Id,
                         new MerchType(merchPack.Type),
-                        new SkuList(merchPack.Items.Select(e => new Sku(e))))));
+                        new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
 
             return merchs;
         }

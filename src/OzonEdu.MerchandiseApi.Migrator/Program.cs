@@ -7,9 +7,9 @@ using Npgsql;
 
 namespace OzonEdu.MerchandiseApi.Migrator
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

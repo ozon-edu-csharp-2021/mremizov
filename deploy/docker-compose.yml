@@ -30,7 +30,7 @@ services:
     depends_on:
       - merchandise-service-db
     environment:
-      DbConfiguration__ConnectionString: "Host=host.docker.internal;Port=5012;Database=merchandise-service;Username=postgres;Password=merchandiseApiPassword"
+      DbConfiguration__ConnectionString: "Host=host.docker.internal;Port=5012;Database=merchandise-service;Username=postgres;Password=merchandiseServicePassword"
 
   stock-service:
     image: ghcr.io/ozon-edu-csharp-2021/stock-api:main

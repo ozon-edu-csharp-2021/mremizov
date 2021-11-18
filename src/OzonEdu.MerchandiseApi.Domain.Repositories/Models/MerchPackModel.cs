@@ -6,6 +6,6 @@
 
         public CSharpCourse.Core.Lib.Enums.MerchType Type { get; set; }
 
-        public long[] Items { get; set; }
+        public string[] Items { get; set; }
     }
 }
