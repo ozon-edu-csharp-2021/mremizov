@@ -18,7 +18,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
     // TODO: что будет на входе через rest api? employeeId или employeeEmail+employeeName?
     // TODO: куда сложить класс? было бы хорошо сложить его в CSharpCourse.Core.Lib.
     // TODO: нужен ли он? можно ли как-то использовать GetMerchInfoRequest из http контрактов?
-    public class EmployeeParameters
+    public sealed class EmployeeParameters
     {
         public string EmployeeEmail { get; set; }
 

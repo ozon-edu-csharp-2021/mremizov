@@ -23,7 +23,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public async Task<MerchPack> FindBy(CSharpCourse.Core.Lib.Enums.MerchType merchType, ClothingSize clothingSize, CancellationToken token)
+        public async Task<MerchPack> GetBy(CSharpCourse.Core.Lib.Enums.MerchType merchType, ClothingSize clothingSize, CancellationToken token)
         {
             var sql = @"
                 SELECT 	id, type, items
@@ -43,19 +43,20 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
                 commandTimeout: CommandTimeout,
                 cancellationToken: token);
 
-            var connection = await _dbConnectionFactory.CreateConnection(token);
-
-            var merchPack = await connection.QueryFirstOrDefaultAsync<MerchPackModel>(commandDefinition);
-
-            if (merchPack == null)
+            using (var connection = await _dbConnectionFactory.CreateConnection(token))
             {
-                throw new MerchPackNotFoundException();
-            }
+                var merchPack = await connection.QueryFirstOrDefaultAsync<MerchPackModel>(commandDefinition);
 
-            return new MerchPack(
-                merchPack.Id,
-                new MerchType(merchPack.Type),
-                new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))));
+                if (merchPack == null)
+                {
+                    throw new MerchPackNotFoundException();
+                }
+
+                return new MerchPack(
+                    merchPack.Id,
+                    new MerchType(merchPack.Type),
+                    new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))));
+            }
         }
     }
 }

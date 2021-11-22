@@ -1,6 +1,6 @@
 ﻿namespace OzonEdu.MerchandiseApi.Domain.Repositories.Models
 {
-    public class EmployeeModel
+    public sealed class EmployeeModel
     {
         public long Id { get; set; }
     }

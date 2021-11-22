@@ -6,7 +6,7 @@ using Npgsql;
 
 namespace OzonEdu.MerchandiseApi.Domain.Repositories.Infrastructure
 {
-    public class NpgsqlConnectionFactory : IDbConnectionFactory<NpgsqlConnection>
+    public sealed class NpgsqlConnectionFactory : IDbConnectionFactory<NpgsqlConnection>
     {
         private readonly DbConfiguration _options;
         private NpgsqlConnection _connection;

@@ -43,22 +43,23 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
                 commandTimeout: CommandTimeout,
                 cancellationToken: token);
 
-            var connection = await _dbConnectionFactory.CreateConnection(token);
+            using (var connection = await _dbConnectionFactory.CreateConnection(token))
+            {
+                var merchs = await connection.QueryAsync<
+                    MerchModel, MerchPackModel, Merch>(commandDefinition,
+                    (merch, merchPack) => new Merch(
+                        merch.Id,
+                        merch.CreatedUtc,
+                        MerchMode.GetBy(merch.Mode),
+                        MerchStatus.GetBy(merch.Status),
+                        employee,
+                        new MerchPack(
+                            merchPack.Id,
+                            new MerchType(merchPack.Type),
+                            new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
 
-            var merchs = await connection.QueryAsync<
-                MerchModel, MerchPackModel, Merch>(commandDefinition,
-                (merch, merchPack) => new Merch(
-                    merch.Id,
-                    merch.CreatedUtc,
-                    MerchMode.GetBy(merch.Mode),
-                    MerchStatus.GetBy(merch.Status),
-                    employee,
-                    new MerchPack(
-                        merchPack.Id,
-                        new MerchType(merchPack.Type),
-                        new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
-
-            return merchs;
+                return merchs;
+            }
         }
 
         public async Task<IEnumerable<Merch>> FindAllBy(IEnumerable<long> skuList, CancellationToken token)
@@ -82,73 +83,55 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
                 commandTimeout: CommandTimeout,
                 cancellationToken: token);
 
-            var connection = await _dbConnectionFactory.CreateConnection(token);
+            using (var connection = await _dbConnectionFactory.CreateConnection(token))
+            {
+                var merchs = await connection.QueryAsync<
+                    MerchModel, MerchPackModel, EmployeeModel, Merch>(commandDefinition,
+                    (merch, merchPack, employee) => new Merch(
+                        merch.Id,
+                        merch.CreatedUtc,
+                        MerchMode.GetBy(merch.Mode),
+                        MerchStatus.GetBy(merch.Status),
+                        new Employee(employee.Id),
+                        new MerchPack(
+                            merchPack.Id,
+                            new MerchType(merchPack.Type),
+                            new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
 
-            var merchs = await connection.QueryAsync<
-                MerchModel, MerchPackModel, EmployeeModel, Merch>(commandDefinition,
-                (merch, merchPack, employee) => new Merch(
-                    merch.Id,
-                    merch.CreatedUtc,
-                    MerchMode.GetBy(merch.Mode),
-                    MerchStatus.GetBy(merch.Status),
-                    new Employee(employee.Id),
-                    new MerchPack(
-                        merchPack.Id,
-                        new MerchType(merchPack.Type),
-                        new SkuList(merchPack.Items.Select(e => new Sku(long.Parse(e)))))));
-
-            return merchs;
+                return merchs;
+            }
         }
 
         public async Task Save(Merch merch, CancellationToken token)
         {
-            if (merch.Id > 0)
-            {
-                var sql = @"
-                    UPDATE  merchs
+            var sql = merch.Id > 0
+
+                ? @"UPDATE  merchs
                     SET     status = @Status
-                    WHERE   id = @Id;";
+                    WHERE   id = @Id;"
 
-                var parameters = new
-                {
-                    Id = merch.Id,
-                    Status = merch.Status
-                };
-
-                var commandDefinition = new CommandDefinition(
-                    sql,
-                    parameters: parameters,
-                    commandTimeout: CommandTimeout,
-                    cancellationToken: token);
-
-                var connection = await _dbConnectionFactory.CreateConnection(token);
-
-                await connection.ExecuteAsync(commandDefinition);
-            }
-            else
-            {
-                var sql = @"
-                    INSERT INTO public.merchs(
+                : @"INSERT INTO public.merchs(
 	                    merchpack_id, employee_id, created_utc, status, mode)
 	                VALUES (@MerchpackId, @EmployeeId, @CreatedUtc, @Status, @Mode);";
 
-                var parameters = new
-                {
-                    MerchpackId = merch.MerchPack.Id,
-                    EmployeeId = merch.Employee.Id,
-                    CreatedUtc = merch.CreatedUtc,
-                    Status = merch.Status,
-                    Mode = merch.Mode
-                };
+            var parameters = new
+            {
+                Id = merch.Id,
+                MerchpackId = merch.MerchPack.Id,
+                EmployeeId = merch.Employee.Id,
+                CreatedUtc = merch.CreatedUtc,
+                Status = merch.Status,
+                Mode = merch.Mode
+            };
 
-                var commandDefinition = new CommandDefinition(
-                    sql,
-                    parameters: parameters,
-                    commandTimeout: CommandTimeout,
-                    cancellationToken: token);
+            var commandDefinition = new CommandDefinition(
+                sql,
+                parameters: parameters,
+                commandTimeout: CommandTimeout,
+                cancellationToken: token);
 
-                var connection = await _dbConnectionFactory.CreateConnection(token);
-
+            using (var connection = await _dbConnectionFactory.CreateConnection(token))
+            {
                 await connection.ExecuteAsync(commandDefinition);
             }
         }

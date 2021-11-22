@@ -3,7 +3,7 @@ using OzonEdu.MerchandiseApi.Domain.Enumerations;
 
 namespace OzonEdu.MerchandiseApi.Domain.Repositories.Models
 {
-    public class MerchModel
+    public sealed class MerchModel
     {
         public long Id { get; set; }
 
