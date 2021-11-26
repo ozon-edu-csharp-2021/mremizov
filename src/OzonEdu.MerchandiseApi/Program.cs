@@ -9,6 +9,8 @@ namespace OzonEdu.MerchandiseApi
     {
         public static void Main(string[] args)
         {
+            Migrator.Program.Main(new string[0]);
+
             CreateHostBuilder(args).Build().Run();
         }
 

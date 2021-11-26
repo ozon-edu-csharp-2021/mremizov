@@ -44,7 +44,7 @@ namespace OzonEdu.MerchandiseApi.Controllers
                         CreatedUtc = e.CreatedUtc,
                         Status = e.Status.Name,
                         Type = e.MerchPack.MerchType.Value.ToString(),
-                        SkuList = e.MerchPack.SkuList.ToArray()
+                        SkuList = e.MerchPack.SkuListValues.ToArray()
                     })
                     .ToArray()
             });
@@ -75,7 +75,7 @@ namespace OzonEdu.MerchandiseApi.Controllers
                     CreatedUtc = merch.CreatedUtc,
                     Status = merch.Status.Name,
                     Type = merch.MerchPack.MerchType.Value.ToString(),
-                    SkuList = merch.MerchPack.SkuList.ToArray()
+                    SkuList = merch.MerchPack.SkuListValues.ToArray()
                 }
             });
         }

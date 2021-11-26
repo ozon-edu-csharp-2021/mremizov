@@ -9,6 +9,6 @@ namespace OzonEdu.MerchandiseApi.Domain.Repositories
 {
     public interface IMerchPackRepository : IRepository
     {
-        Task<MerchPack> FindBy(MerchType merchType, ClothingSize clothingSize, CancellationToken token);
+        Task<MerchPack> GetBy(MerchType merchType, ClothingSize clothingSize, CancellationToken token);
     }
 }

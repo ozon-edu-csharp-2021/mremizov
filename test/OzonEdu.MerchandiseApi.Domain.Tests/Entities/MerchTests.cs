@@ -6,7 +6,7 @@ using OzonEdu.MerchandiseApi.Domain.Exceptions;
 
 namespace OzonEdu.MerchandiseApi.Domain.Tests.Entities
 {
-    public class MerchTests
+    public sealed class MerchTests
     {
         [TestCase(MerchStatusEnum.New, TestName = "Can move to 'Waiting' status from 'New'")]
         [TestCase(MerchStatusEnum.Waiting, TestName = "Can move to 'Waiting' status from 'Waiting'")]

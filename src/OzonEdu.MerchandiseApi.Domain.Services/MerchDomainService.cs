@@ -13,23 +13,23 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
     public sealed class MerchDomainService : IMerchDomainService
     {
         private readonly IMerchRepository _merchRepository;
+        private readonly IMerchPackRepository _merchPackRepository;
         private readonly IEmployeeWithMerchsDomainService _employeeWithMerchsDomainService;
-        private readonly IMerchPackDomainService _merchPackDomainService;
         private readonly IEmailServiceMock _emailServiceMock;
         private readonly IStockApiClientMock _stockApiClientMock;
 
         public MerchDomainService(
             IMerchRepository merchRepository,
+            IMerchPackRepository merchPackRepository,
             IEmployeeWithMerchsDomainService employeeWithMerchsDomainService,
-            IMerchPackDomainService merchPackDomainService,
             IEmailServiceMock emailServiceMock,
             IStockApiClientMock stockApiClientMock)
         {
             _merchRepository = merchRepository;
             _employeeWithMerchsDomainService = employeeWithMerchsDomainService;
-            _merchPackDomainService = merchPackDomainService;
             _emailServiceMock = emailServiceMock;
             _stockApiClientMock = stockApiClientMock;
+            _merchPackRepository = merchPackRepository;
         }
 
         public async Task<Merch> GiveOutMerch(EmployeeParameters employeeParameters, MerchParameters merchParameters, CancellationToken token)
@@ -37,7 +37,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
             // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу два одинаковых мерча.
 
             var employee = await _employeeWithMerchsDomainService.FindBy(employeeParameters, token);
-            var merchPack = await _merchPackDomainService.FindBy(merchParameters.MerchType, employee.Employee.ClothingSize, token);
+            var merchPack = await _merchPackRepository.GetBy(merchParameters.MerchType, employee.Employee.ClothingSize, token);
             var merch = employee.AddMerchToEmployee(merchParameters.MerchMode, merchPack);
 
             return await GiveOutMerch(merch, token);
@@ -47,6 +47,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
         {
             // TODO: нужна блокировка, чтобы нельзя было одновременно запустить в работу мерчи несколько раз.
 
+            // TODO: Employee в базе не храним, поэтому merch.Employee пустой, надо запрашивать внешний сервис в цикле.
             var employees = await _employeeWithMerchsDomainService.FindAllBy(shippedSkuList, token);
 
             var tasks = new List<Task>();
@@ -84,7 +85,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
 
         private async Task<Merch> GiveOutMerch(Merch merch, CancellationToken token)
         {
-            if (await _stockApiClientMock.TryReserve(merch.MerchPack.SkuList, token))
+            if (await _stockApiClientMock.TryReserve(merch.MerchPack.SkuListValues, token))
             {
                 merch.Done();
                 await _merchRepository.Save(merch, token);

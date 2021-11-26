@@ -24,7 +24,7 @@ namespace OzonEdu.MerchandiseApi.Domain.Services
         {
             var employee = await _employeeDomainService.FindBy(parameters, token);
 
-            var merchs = await _merchRepository.FindAllBy(employee.Id, token);
+            var merchs = await _merchRepository.FindAllBy(employee, token);
 
             return new EmployeeWithMerchs(employee, merchs);
         }

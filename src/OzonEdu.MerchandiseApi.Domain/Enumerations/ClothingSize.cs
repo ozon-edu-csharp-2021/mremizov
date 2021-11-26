@@ -6,12 +6,12 @@ namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 {
     public sealed class ClothingSize : Enumeration
     {
-        public static ClothingSize XS = new(1, nameof(XS));
-        public static ClothingSize S = new(2, nameof(S));
-        public static ClothingSize M = new(3, nameof(M));
-        public static ClothingSize L = new(4, nameof(L));
-        public static ClothingSize XL = new(5, nameof(XL));
-        public static ClothingSize XXL = new(6, nameof(XXL));
+        public static ClothingSize XS = new((int)ClothingSizeEnum.XS, nameof(XS));
+        public static ClothingSize S = new((int)ClothingSizeEnum.S, nameof(S));
+        public static ClothingSize M = new((int)ClothingSizeEnum.M, nameof(M));
+        public static ClothingSize L = new((int)ClothingSizeEnum.M, nameof(L));
+        public static ClothingSize XL = new((int)ClothingSizeEnum.XL, nameof(XL));
+        public static ClothingSize XXL = new((int)ClothingSizeEnum.XXL, nameof(XXL));
 
         public ClothingSize(int id, string name) : base(id, name)
         {
@@ -28,5 +28,15 @@ namespace OzonEdu.MerchandiseApi.Domain.Enumerations
 
             return clothingSize;
         }
+    }
+
+    public enum ClothingSizeEnum
+    {
+        XS = 1,
+        S,
+        M,
+        L,
+        XL,
+        XXL
     }
 }
